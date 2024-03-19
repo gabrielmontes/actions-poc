@@ -1,4 +1,4 @@
-name: Docker CI build.
+name: docker-ci-build
 on: [push]
 
 jobs:
@@ -8,8 +8,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Docker CI build.
-        id: docker CI build
+      - name: docker-ci-build
+        id: docker-ci-build
         uses: ./
         with:
           tag: "test_action"

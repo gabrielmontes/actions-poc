@@ -25,7 +25,7 @@ runs:
       shell: bash
     - name: Pass Inputs to Shell
       run: |
-              echo "USERNAME=${{inputs.username }}" >> "$USERNAME"
+              echo "USERNAME=${{ inputs.username }}" >> "$USERNAME"
               echo "TOKEN=${{ inputs.token }}" >> "$TOKEN"
               echo "TAG=${{ inputs.tag }}" >> "$TAG"
               echo "REPOSITORY=${{ inputs.repository }}" >> "$REPOSITORY"

@@ -1,0 +1,18 @@
+name: Docker CI build.
+on: [push]
+
+jobs:
+  get-num-square:
+    runs-on: ubuntu-latest
+    name: Docker build and push to docker hub repository.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Docker CI build.
+        id: docker CI build
+        uses: ./
+        with:
+          tag: "test_action"
+          repository: ${{ secrets.repository }} 
+          username: ${{ secrets.username }}
+          token: ${{ secrets.token }}

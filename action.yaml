@@ -1,7 +1,18 @@
 name: 'Build and docker push'
 description: 'A GitHub Action that runs docker build, and push the artifact to docker hub'
 inputs:
-outputs:
+  username:
+    description: 'Enter your docker hub username.'
+    required: True
+  token:
+    description: 'Enter your docker hub token.'
+    required: True
+  repository:
+    description: 'Enter your docker hub repository.'
+    required: True
+  tag:
+    description: 'Enter the tag name.'
+    required: True
 runs:
   using: 'composite'
   steps:
@@ -12,7 +23,15 @@ runs:
     - name: Install Dependencies
       run: pip install -r requirements.txt
       shell: bash
+    - name: Pass Inputs to Shell
+      run: |
+              echo "USERNAME=${{inputs.username }}" >> $USERNAME
+              echo "TOKEN=${{ inputs.token }}" >> $TOKEN
+              echo "TAG=${{ inputs.tag }}" >> $TAG
+              echo "REPOSITORY=${{ inputs.repository }}" >> $REPOSITORY
+      shell: bash
     - name: Docker Build
       id: docker_build
       run: python src/docker-ci.py
       shell: bash
+

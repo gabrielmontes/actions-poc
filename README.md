@@ -10,3 +10,24 @@ This GitHub Action automates the process of building a Docker image, logging in 
 Usage:
 
 To use this action in your GitHub workflow, you can include it as a step in your .github/workflows/docker-ci.yml file.
+
+```bash
+name: docker-ci-build
+on: [push]
+
+jobs:
+  get-num-square:
+    runs-on: ubuntu-latest
+    name: Docker build and push to docker hub repository.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: docker-ci-build
+        id: docker-ci-build
+        uses: ./
+        with:
+          tag: "test_action"
+          repository: ${{ secrets.REPOSITORY }} 
+          username: ${{ secrets.USERNAME }}
+          token: ${{ secrets.TOKEN }}
+```

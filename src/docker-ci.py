@@ -33,10 +33,10 @@ def find(name, path) -> str:
 
 def get_env_variables() -> dict:
   env_variables: dict = {
-    "tag": None, 
-    "repository": None, 
-    "username": None,
-    "token": None
+    "TAG": None, 
+    "REPOSITORY": None, 
+    "USERNAME": None,
+    "TOKEN": None
   }
 
   for var in env_variables:

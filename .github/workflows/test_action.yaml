@@ -13,6 +13,6 @@ jobs:
         uses: ./
         with:
           tag: "test_action"
-          repository: ${{ secrets.repository }} 
-          username: ${{ secrets.username }}
-          token: ${{ secrets.token }}
+          repository: ${{ secrets.REPOSITORY }} 
+          username: ${{ secrets.USERNAME }}
+          token: ${{ secrets.TOKEN }}

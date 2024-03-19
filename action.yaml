@@ -25,15 +25,10 @@ runs:
       shell: bash
     - name: Pass Inputs to Shell
       run: |
-              USERNAME=""
-              TOKEN=""
-              TAG=""
-              REPOSITORY=""
-              
-              echo "USERNAME=${{ inputs.username }}" >> "$USERNAME"
-              echo "TOKEN=${{ inputs.token }}" >> "$TOKEN"
-              echo "TAG=${{ inputs.tag }}" >> "$TAG"
-              echo "REPOSITORY=${{ inputs.repository }}" >> "$REPOSITORY"
+              echo "USERNAME=${{ inputs.username }}" >> "$GITHUB_ENV"
+              echo "TOKEN=${{ inputs.token }}" >> "$GITHUB_ENV"
+              echo "TAG=${{ inputs.tag }}" >> "$GITHUB_ENV"
+              echo "REPOSITORY=${{ inputs.repository }}" >> "$GITHUB_ENV"
       shell: bash
     - name: Docker Build
       id: docker_build

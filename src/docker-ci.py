@@ -57,7 +57,7 @@ def main() -> None:
   build(
     path = working_dir,
     file = dockerfile,
-    tag = f"{variables.get("repository")}:{variables.get("tag")}"
+    tag = f"{variables.get('repository')}:{variables.get('tag')}"
   )
 
   login(username = variables.get("username"), password = variables.get("token"))

@@ -57,12 +57,12 @@ def main() -> None:
   build(
     path = working_dir,
     file = dockerfile,
-    tag = f"{variables.get('repository')}:{variables.get('tag')}"
+    tag = f"{variables.get('REPOSITORY')}:{variables.get('TAG')}"
   )
 
-  login(username = variables.get("username"), password = variables.get("token"))
+  login(username = variables.get("USERNAME"), password = variables.get("TOKEN"))
   
-  for line in push(repository = variables.get("repository"), tag = variables.get("tag")):
+  for line in push(repository = variables.get("REPOSITORY"), tag = variables.get("TAG")):
     print(line)
 
 if __name__ == '__main__':

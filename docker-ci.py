@@ -1,6 +1,6 @@
 # Author: Gabriel Montes.
 import docker
-import argparse
+import os
 
 # client:
 client = docker.from_env()
@@ -18,7 +18,6 @@ def login(**args) -> str:
     password = args["password"]
   )
 
-
 def push(**args) -> str:
   return client.images.push(
     repository = args["repository"], 
@@ -27,28 +26,43 @@ def push(**args) -> str:
     decode = True
   )
 
-def parser() -> dict:
-  parser = argparse.ArgumentParser()
-  parser.add_argument('--path', type=str, required=True)
-  parser.add_argument('--dockerfile', type=str,required=True)
-  parser.add_argument('--tag', type=str, required=True)
-  parser.add_argument('--repository', type=str, required=True)
-  parser.add_argument('--username', type=str, required=True)
-  parser.add_argument('--password', type=str, required=True, help=argparse.SUPPRESS)
-  return parser.parse_args()
+def find(name, path) -> str:
+  for root, dirs, files in os.walk(path):
+    if name in files:
+      return os.path.join(root,name)
+
+def get_env_variables() -> dict:
+  env_variables: dict = {
+    "tag": None, 
+    "repository": None, 
+    "username": None,
+    "token": None
+  }
+
+  for var in env_variables:
+    current_var = os.environ.get(var)
+    if current_var:
+      try:
+        env_variables.update({var: current_var})
+      except Exception:
+        exit(f'ERROR: The environment {var} has not been provided.')
+
+  return env_variables
 
 def main() -> None:
-  args = parser()
-  
+  variables: dict = get_env_variables()
+  working_dir = os.getcwd()
+  dockerfile = find("Dockerfile", working_dir)
+
   build(
-    path = args.path,
-    file = args.dockerfile,
-    tag = args.repository + ":" + args.tag
+    path = working_dir,
+    file = dockerfile,
+    tag = f"{variables.get("repository")}:{variables.get("tag")}"
   )
 
-  login(username = args.username, password = args.password)
+  login(username = variables.get("username"), password = variables.get("token"))
   
-  for line in push(repository = args.repository, tag = args.tag):
+  for line in push(repository = variables.get("repository"), tag = variables.get("tag")):
     print(line)
 
 if __name__ == '__main__':

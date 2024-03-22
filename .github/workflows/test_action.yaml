@@ -2,7 +2,7 @@ name: docker-ci-build
 on: [push]
 
 jobs:
-  get-num-square:
+  local-test:
     runs-on: ubuntu-latest
     name: Docker build and push to docker hub repository.
     steps:

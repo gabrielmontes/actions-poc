@@ -30,7 +30,7 @@ runs:
     - name: Docker Build
       id: docker_build
       run: |
-        pip install -r .github/requirements.txt
-        python .github/docker-ci.py
+        pip install -r requirements.txt
+        python docker-ci.py
       shell: bash
 
